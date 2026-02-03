@@ -1,0 +1,56 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime files
+pids/
+*.pid
+*.seed
+tmp/
+temp/
+node_repl_history
+
+# Build / output
+dist/
+build/
+out/
+lib/
+coverage/
+.nyc_output/
+lcov-report/
+
+# Environment files (contienen secretos)
+.env
+.env.local
+.env.*
+
+# Editor / IDE
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Caches
+.cache/
+.parcel-cache/
+.rpt2_cache/
+.next/    # si en algún momento se usa Next.js
+.npm/
+
+# TypeScript
+*.tsbuildinfo
+
+# Misc
+.coverage
+*.local
