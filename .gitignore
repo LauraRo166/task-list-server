@@ -33,7 +33,7 @@ lcov-report/
 
 # Editor / IDE
 .vscode/
-.idea/
+.idea
 *.iml
 
 # OS files
