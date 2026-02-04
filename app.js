@@ -1,9 +1,13 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const listViewRouter = require('./list-view-router');
 const listEditRouter = require('./list-edit-router');
+const authRouter = require('./auth-router');
+const protectedRouter = require('./protected-router');
 const tasks = require('./data/tasks');
 
 const allowedMethods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'];
@@ -28,6 +32,8 @@ app.get('/', (req, res) => {
 
 app.use('/api', listViewRouter);
 app.use('/api', listEditRouter);
+app.use('/auth', authRouter);
+app.use('/protected', protectedRouter);
 
 const server = app.listen(PORT, () => {
     console.log(`listening on port http://localhost:${PORT}`);
