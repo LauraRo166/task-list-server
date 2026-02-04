@@ -2,18 +2,21 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const tasks = [
-  { id: 123456, isCompleted: false, description: 'Walk the dog' },
-  { id: 2, isCompleted: true,  description: 'Buy groceries' },
-  { id: 3, isCompleted: false, description: 'Read a book' }
-];
+const listViewRouter = require('./list-view-router');
+const listEditRouter = require('./list-edit-router');
+const tasks = require('./data/tasks');
+
+app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.json(tasks);
+    res.json(tasks);
 });
 
+app.use('/api', listViewRouter);
+app.use('/api', listEditRouter);
+
 const server = app.listen(PORT, () => {
-  console.log(`listening on port http://localhost:${PORT}`);
+    console.log(`listening on port http://localhost:${PORT}`);
 });
 
 module.exports = server;
