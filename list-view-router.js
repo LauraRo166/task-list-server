@@ -53,18 +53,11 @@ const validateStatusParam = (req, res, next) => {
 };
 
 router.get('/tasks', (req, res) => {
-    res.json(tasks);
-});
-
-router.get('/tasks/:id', validateIdParam, (req, res) => {
-    const taskId = parseInt(req.params.id);
-    const task = tasks.find(t => t.id === taskId);
-
-    if (!task) {
-        return res.status(404).json({ message: "Tarea no encontrada" });
-    }
-
-    res.json(task);
+    res.status(200).json({
+        success: true,
+        count: tasks.length,
+        data: tasks
+    });
 });
 
 router.get('/tasks/filter/:status', validateStatusParam, (req, res) => {
@@ -72,7 +65,30 @@ router.get('/tasks/filter/:status', validateStatusParam, (req, res) => {
     const isCompleted = status === 'completed';
     const filteredTasks = tasks.filter(t => t.isCompleted === isCompleted);
 
-    res.json(filteredTasks);
+    res.status(200).json({
+        success: true,
+        filter: status,
+        count: filteredTasks.length,
+        data: filteredTasks
+    });
+});
+
+router.get('/tasks/:id', validateIdParam, (req, res) => {
+    const taskId = parseInt(req.params.id);
+    const task = tasks.find(t => t.id === taskId);
+
+    if (!task) {
+        return res.status(404).json({
+            success: false,
+            error: "Recurso no encontrado",
+            message: `No se encontró ninguna tarea con el ID ${taskId}`
+        });
+    }
+
+    res.status(200).json({
+        success: true,
+        data: task
+    });
 });
 
 module.exports = router;
