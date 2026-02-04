@@ -6,6 +6,20 @@ const listViewRouter = require('./list-view-router');
 const listEditRouter = require('./list-edit-router');
 const tasks = require('./data/tasks');
 
+const allowedMethods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'];
+
+const validateHttpMethod = (req, res, next) => {
+    if (!allowedMethods.includes(req.method)) {
+        return res.status(405).json({
+            error: "Método no permitido",
+            message: `El método HTTP '${req.method}' no está permitido en este servidor`,
+            allowedMethods: allowedMethods
+        });
+    }
+    next();
+};
+
+app.use(validateHttpMethod);
 app.use(express.json());
 
 app.get('/', (req, res) => {
